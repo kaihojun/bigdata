@@ -1,0 +1,494 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #282c34;
+    overflow: hidden;
+}
+
+#result_image img {
+    max-width: 50%;
+    max-height: 50%;
+}
+
+#wallpaper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 50px;
+}
+
+#search {
+    margin-bottom: 20px;
+}
+
+input {
+    margin-right: 10px;
+}
+
+
+/* tab 1 display */
+#search {
+    width: 800px;
+    height: 500px;
+    border-radius: 50px 0px 50px 50px;
+    line-height: 100px;
+    background-color: white;
+    display: inline-block;
+    text-align: center;
+    overflow: hidden;
+    transition: height 0.5s ease;
+}
+
+#search.expanded {
+    height: 700px;
+}
+
+#search.expanded #word_cloud {  
+    display: block;
+}
+
+
+/* tab 2 display */
+#content1{
+    width: 800px;
+    height: 520px;
+    border-radius: 50px 0px 50px 50px;
+    line-height: 100px;
+    background-color: white;
+    display: inline-block;
+    text-align: center;
+    overflow: hidden;
+    transition: height 0.5s ease;
+    display: none;
+}
+#content1.expanded {
+    height: 720px;
+}
+
+
+/* tab 3 display */
+#content2{
+    width: 800px;
+    height: 520px;
+    border-radius: 50px 0px 50px 50px;
+    line-height: 100px;
+    background-color: white;
+    display: inline-block;
+    text-align: center;
+    overflow: hidden;
+    transition: height 0.5s ease;
+    display: none;
+}
+#content2.expanded {
+    height: 720px;
+}
+
+
+/* 각 라디오 버튼에 대한 스타일 */
+input[type="radio"] {
+    display: none;
+}
+
+#radio_Label > label {
+    display: inline-block;
+    width: 20%;
+    height: 50px;
+    margin: 5px;
+    cursor: pointer;
+    background-color: white;
+    line-height: 70px;
+}
+
+label img {
+    width: 100px;
+    height: 100%;
+    object-fit: contain;
+}
+
+input[type="radio"]:checked + label {
+    border: 2px solid gray; /* 체크된 라디오 버튼에 대한 스타일 */
+}
+
+#radio_Label > label:hover {
+    border: 2px solid gray;
+}
+
+#radio_Label {
+    width: 800px;
+    height: 100px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3%;
+}
+
+/* search item */
+#search_form {
+    width: 800px;
+    display: flex;
+    text-align: center;
+    margin-top: 30px;
+    margin-left: 30px;
+}
+
+#news_label {
+    width: 100px;
+    height: 50px;
+    margin-right: 2%;
+}
+
+#inputImage {
+    width: 100px;
+    height: 100%;
+    object-fit: contain;
+}
+
+#news_input {
+    width: 650px;
+    height: 50px;
+    border-radius: 50px 0 0 50px;
+    margin-right: -2px;
+    padding-left: 20px;
+    font-size: 15px;
+}
+
+#url_button {
+    width: 70px;
+    height: 56px;
+    border-radius: 0 50px 50px 0;
+    background-color: black;
+    color: white;
+    font-family: sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#url_button:hover {
+    background-color: #585858;
+}
+
+/* content */
+#content {
+    width: 800px;
+    text-align: center;
+    /* 수평 중앙 정렬을 위해 부모 요소에 text-align 속성 추가 */
+}
+
+#content-title{
+    display: none;
+}
+
+#content-title.expanded{
+    display: block;
+}
+
+
+/* word cloud box */
+#word-cloud-box{
+    display: none;
+}
+
+#word-cloud-box.expanded{
+    display: block;
+}
+
+#word_cloud {
+    width: 500px;
+    height: 350px;
+}
+
+#word_cloud img {
+    max-width: 500px;
+    /* 이미지가 부모 요소를 초과하지 않도록 최대 너비 지정 */
+    max-height: 350px;
+    /* 이미지가 부모 요소를 초과하지 않도록 최대 높이 지정 */
+    object-fit: contain;
+}
+
+
+/* project creator */
+#content2 {
+    overflow-y: auto; /* 수직 스크롤 추가 *//
+}
+/* 스크롤바 감추기 */
+#content2::-webkit-scrollbar {
+    display: none;
+}
+
+#project-creator{
+    height: 500px;
+    text-align: center;
+    margin-bottom: 0px;
+}
+#project-creator.expanded{
+    height: 700px;
+    transition: height 0.5s ease;
+}
+
+#creator-list{
+    list-style: none;
+}
+
+#creator-list > li{
+    height: 50px;
+    line-height: 50px;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+/* 개발 환경 */
+#ide-image{
+    width: 800px;
+    height: 360px;
+    text-align: center;
+}
+p{
+    height: 50px;
+    line-height: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: sans-serif ;
+}
+
+#ide-box > img{
+    width: 100%;   
+    height: 100%;
+    object-fit: contain;
+}
+
+
+/* tab 설정 */
+#tabs {
+    height: 520px;
+    transition: height 0.5s ease;
+}
+
+#tabs.expanded {
+    height: 720px;
+}
+
+.tab {
+    display: block;
+    width: 75px;
+    height: 75px;
+    cursor: pointer;
+    background-color: #6B6B6B;
+    margin-bottom: 30px;
+    border-radius: 0px 25px 25px 0px;
+    line-height: 75px;
+    text-align: center;
+    font-weight: bold;
+    font-family: sans-serif;
+    transition: background 0.3s ease-in-out;  /* 배경색 변경 효과를 적용합니다. */
+}
+
+#tab1 {
+    background-color: white;
+}
+
+#tab1:hover {
+    background-color: #FFFB77;
+}
+#tab2:hover {
+    background-color: #FFFB77;
+}
+#tab3:hover {
+    background-color: #FFFB77;
+}
+.tab_content {
+    display: none;
+}
+
+
+
+
+/* 선택된 탭의 배경색 설정 */
+.tab_content#content1 {
+    background-color: #fff;
+}
+
+.tab_content#content2 {
+    background-color: #fff;
+}
+
+.tab_content#content3 {
+    background-color: #fff;
+}
+
+.pie-chart {
+    position: relative;
+    display: inline-block;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+span.center {
+    background: #fff;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 100px;
+    font-size: 30px;
+    transform: translate(-50%, -50%);
+}
+
+#result{
+    display: block;
+    margin-top: 200px;
+    font-size: 20px;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+#chartContainer{
+    display: none;
+}
+
+#chartContainer.expanded{
+    display: inline-flex;
+}
+
+
+/* 테이블 */
+table{
+    width: 450px;
+    margin-left: 70px;
+    border: 1px solid #D0D0D0;
+    border-radius: 25px;
+}
+
+td, th{
+    /* border: 1px solid #D0D0D0; */
+}
+
+table tbody tr {
+    line-height: 20px;  /* 원하는 값으로 변경 */
+}
+table thead tr {
+    line-height: 20px;
+}
+
+table thead th {
+    padding: 10px 0;
+}
+
+table tbody td, table tbody th {
+    padding: 10px 0;  /* 위 아래 여백을 조절하여 셀의 높이를 변경 */
+}
+
+#logo-image{
+    position: absolute;
+    
+    border-radius: 20px;
+    width: 250px;
+    top: 20px;
+}
+#logo-image > img{
+    width: 250px;
+
+}
+
+#userinfo{
+    position: absolute;
+    width: 800px;
+    float: right;
+    top: 15%;
+    color: white;
+    display: inline-flex;
+    margin-left: 80px;
+}
+
+#logout{
+    padding: 5px;
+    text-decoration: none;
+    color: white;
+    margin-left: 220px;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+#logout:hover{
+    background-color: white;
+    color: black;
+}
+
+/* 로딩 화면 스타일 */
+#loading_overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+#loading_spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+/* 로딩 스피너 회전 애니메이션 */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 로딩 화면 스타일 */
+#loading_overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+#loading_spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+/* 로딩 스피너 회전 애니메이션 */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+#result_image{
+    display: block;
+    width: 800px;
+    height: 450px;
+    text-align: center;  
+}
+

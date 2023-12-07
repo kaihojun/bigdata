@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="static/css/start.css">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container">
+          <div class="sign-up-container">
+            <form action="/" method="post">
+              <h2>정보를 입력해주세요!</h2>
+
+              <input type="text" placeholder="ID" name="signUpId" required>
+              <input type="password" placeholder="Password" name="password" required>
+              <input type="text" placeholder="Name" name="name" required>
+              <input type="email" placeholder="EMAIL" name="email" required>
+              <input type="text" placeholder="PHONE-NUM" name="phone-num" id="phone-num" size="" required>
+
+              <button class="form_btn">회원가입</button>
+            </form>
+          </div>
+          <div class="sign-in-container">
+            <form action="/" method="post">
+              <h2><img src="{{ url_for('static', filename='image/logo.png') }}" height="130px"; alt="나만의 투자 매니저"></h2>
+              <span></span>
+              <input type="text" placeholder="ID" name="signInId">
+              <input type="password" placeholder="Password" name="signInPw">
+              <button class="form_btn">로그인</button>
+            </form>
+          </div>
+          <div class="overlay-container">
+            <div class="overlay-left">
+              <h1>가입해주세요!</h1>
+              <p>나만의 작은 투자 매니저를 <br>찾아주셔서 감사합니다</p>
+              <button id="signIn" class="overlay_btn">로그인</button>
+            </div>
+            <div class="overlay-right">
+              <h1>환영합니다!</h1>
+              <p>계정이 없다면 회원가입을 눌러 <br>만들어주세요!</p>
+              <button id="signUp" class="overlay_btn">회원가입</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    // 플래시 메시지 확인
+                    var flashMessage = "{{ get_flashed_messages()|first }}";
+
+                    if (flashMessage) {
+                        // 실패한 경우에만 alert 창 띄우기
+                        alert(flashMessage);
+                    }
+                });
+
+                const signUpBtn = document.getElementById("signUp");
+                const signInBtn = document.getElementById("signIn");
+                const container = document.querySelector(".container");
+
+                signUpBtn.addEventListener("click", () => {
+                    container.classList.add("right-panel-active");
+                });
+                signInBtn.addEventListener("click", () => {
+                    container.classList.remove("right-panel-active");
+                });
+
+                // 전화번호 형식 변환 함수
+                function formatPhoneNumber() {
+                    var input = document.getElementById('phone-num');
+                    var phoneNumber = input.value.replace(/\D/g, ''); // 숫자 이외의 문자 제거
+
+                    if (phoneNumber.length === 10) {
+                        phoneNumber = phoneNumber.replace(/(\d{3})(\d{4})(\d{3})/, '$1-$2-$3');
+                        input.value = phoneNumber;
+                    }
+                }
+
+                // 입력 값이 변경될 때마다 형식 변환 함수 호출
+                document.getElementById('phone-num').addEventListener('input', formatPhoneNumber);
+
+                // 로그인 버튼 클릭 시 loginUser 함수 호출
+                document.querySelector('.sign-in-container .form_btn').addEventListener('click', loginUser);
+            </script>
+</body>
+</html>

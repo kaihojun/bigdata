@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>빅데이터</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+        }
+
+        #wallpaper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #282c34;
+            color: white;
+        }
+
+        #text {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUpItem 1s forwards;
+            text-align: center; /* 중앙 정렬 스타일 추가 */
+        }
+
+        #title, #semi_title, #action {
+            margin: 10px 0; /* 각 텍스트 요소의 상하 여백 추가 */
+        }
+
+        @keyframes fadeInUpItem {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes blink {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .blink-animation {
+            animation: blink 1.5s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div id="wallpaper" onkeydown="redirectToMain()">
+        <div id="text">
+            <h1 id="title">나만의 작은 투자 매니저</h1>
+            <h3 id="semi_title">(본인의 투자로 인한 손실은 책임지지 않습니다.)</h3>
+            <h3 id=""><span style="color: yellow">{{ user }}</span>님 환영합니다!</h3>
+            <h3 id="action" class="blink-animation">키보드를 눌러주세요</h3>
+        </div>
+    </div>
+
+    <script>
+    function redirectToMain() {
+        // 새로운 URL로 이동
+        window.location.href = '/main';
+    }
+
+    // 키보드 이벤트 감지
+    document.addEventListener('keydown', function () {
+        redirectToMain();
+    });
+
+    document.addEventListener('touch', function(){
+        redirectToMain();
+    });
+</script>
+</body>
+</html>

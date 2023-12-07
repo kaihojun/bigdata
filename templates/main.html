@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/main.css">
+    <script src="../static/js/main.js"></script>
+    <title>기사를 통해 기업의 부도율 예측</title>
+</head>
+<body>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- 전체 페이지 --> 
+    <div id="logo-image">
+        <img src="{{ url_for('static', filename='image/logo_white.png') }}">
+    </div>
+    
+    
+    
+    <div id="wallpaper">    
+        
+        <div id="userinfo">
+            <h3>{{ user }}님 My Fund Manager에 오신걸 환영합니다!!</h3><h3><a href="/logout" id="logout" name="logout">로그아웃</a></h3>
+        </div>    
+        <!-- 검색 기능 페이지 -->
+        <div class="tab_content" id="search">
+
+            <div id="loading_overlay">
+                <div id="loading_spinner"></div>
+            </div>
+
+            <div id="search_item">
+                <form id="search_form" action="/update_image" method="post">
+                    <input id="news_input" type="text" name="news_input" placeholder="기업명을 입력해주세요." onkeydown="handleKeyPress(event)" required>
+                    <button id="url_button" type="button" value="검색" onclick="updateImage()">검색</button>
+                </form>
+            </div>    
+
+            
+            <!-- 결과 이미지를 표시할 div -->
+            <div id="result_image"></div>
+        </div>
+        
+        <div class="tab_content" id="content1">
+            <h2 id="content1-title">검색된 결과가 없습니다.</h2>
+            <div id="word-cloud-box">
+                <span id="word_cloud"><img src="./image/word_cloud.png" alt="단어 클라우드 들어가는 곳"></span>
+                <p>요약 단어 10개</p>
+                <p>채무, 파업, 퇴출, 파산, 자금난, 은행, 위기, 경제, 몰락, 잠식</p>
+            </div>
+            
+        </div>
+
+        <div class="tab_content" id="content2">
+            <h2>프로젝트 제작자</h2>
+            <div id="project-creator">
+                <ul id="creator-list">
+                    <li>류한성(팀장) : 프로젝트 관리자</li>
+                    <li>김종표(팀원) : 아키텍트 수립, 기술 검토 진행</li>
+                    <li>김호준(팀원) : 프로젝트의 분석/설계의 DBA</li>
+                    <li>백승준(팀원) : 인터페이스 책임 및 구현</li>
+                    <li>최민우(팀원) : 프로젝트 산출문 표준 수립 및 가이드, 최종 산출물 취합</li>
+                </ul>
+                <p>개발에 사용한 툴 및 언어</p>
+                <div id="ide-image">
+                    <span id="ide-box"><img src="{{ url_for('static', filename='image/IDE_image.png')}}" alt="개발환경"></span>
+                </div>
+            </div>
+        </div>
+            
+    </div>
+    
+    <div id="tabs">
+        <div class="tab" id="tab1" onclick="showTab('search','tab1')">검색</div>
+        <div class="tab" id="tab2" onclick="showTab('content1','tab2')">결과</div>
+        <div class="tab" id="tab3" onclick="showTab('content2','tab3')">제작</div>
+    </div>
+
+    <script>
+
+    
+
+    // 수정본
+    function searchUpdateImage(callback) {
+        // 입력값 가져오기
+        var inputText = document.getElementById('news_input').value;
+
+        // AJAX를 사용하여 서버에 입력값을 전송하고 응답을 받아옴
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                // 응답에서 이미지 경로를 가져와서 이미지 업데이트
+                var imagePath = xhr.responseText;
+
+                // 이미지를 result_image div에 추가
+                var resultImageDiv = document.getElementById('result_image');
+                resultImageDiv.innerHTML = '<img src="' + imagePath + '" alt="resultImage" style="max-width: 90%; max-height: 90%;">';
+
+                // 콜백 함수 호출 (로딩 화면을 숨기기 위해)
+                if (callback && typeof callback === 'function') {
+                    callback();
+                }
+            }
+        };
+
+        // POST 방식으로 서버에 입력값 전송
+        xhr.open("POST", "/update_image", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send("news_input=" + inputText);
+    }
+
+    function updateImage() {
+        // 로딩 화면 표시
+        document.getElementById('loading_overlay').style.display = 'flex';
+
+        // searchUpdateImage 함수 호출
+        searchUpdateImage(function() {
+            // searchUpdateImage 함수가 완료된 후 실행되는 콜백
+            // 로딩 화면 숨김
+            document.getElementById('loading_overlay').style.display = 'none';
+        });
+    }
+     // 폼 제출 시 searchUpdateImage 함수 호출
+    document.getElementById('search_form').addEventListener('submit', function(event) {
+        // 기본 제출 동작 방지
+        event.preventDefault();
+
+        // 로딩 화면 표시
+        document.getElementById('loading_overlay').style.display = 'flex';
+
+        // searchUpdateImage 함수 호출
+        searchUpdateImage(function() {
+            // searchUpdateImage 함수가 완료된 후 실행되는 콜백
+            // 로딩 화면 숨김
+            document.getElementById('loading_overlay').style.display = 'none';
+        });
+    });
+    </script>
+</body>
+</html>

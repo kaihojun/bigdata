@@ -1,0 +1,49 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph Viewer</title>
+    <script>
+        function updateImage() {
+            // 입력값 가져오기
+            var inputText = document.getElementById('news_input').value;
+
+            // AJAX를 사용하여 서버에 입력값을 전송하고 응답을 받아옴
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    // 응답에서 이미지 경로를 가져와서 이미지 업데이트
+                    var imagePath = xhr.responseText;
+
+                    // 이미지를 result_image div에 추가
+                    var resultImageDiv = document.getElementById('result_image');
+                    resultImageDiv.innerHTML = '<img src="' + imagePath + '" alt="resultImage">';
+                }
+            };
+
+            // POST 방식으로 서버에 입력값 전송
+            xhr.open("POST", "/update_image", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.send("news_input=" + inputText);
+        }
+    </script>
+</head>
+<body>
+    <div id="search_item">
+        <form id="search_form" action="/update_image" method="post">
+            <label for="news_label">
+                <img id="inputImage" src="{{ url_for('static', filename='image/edaily.png') }}" alt="inputImage">
+            </label>
+            <input id="news_input" type="text" name="news_input" placeholder="기업명을 입력해주세요.">
+            <button id="url_button" type="button" value="검색" onclick="updateImage()">검색</button>
+        </form>
+    </div>
+
+    <!-- 결과 이미지를 표시할 div -->
+    <div id="result_image"></div>
+</body>
+</html>
